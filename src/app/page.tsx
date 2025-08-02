@@ -6,262 +6,415 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [currentService, setCurrentService] = useState(0);
 
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentService((prev) => (prev + 1) % 3);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-[#5df0ec]/20 flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="overflow-hidden">
-            <div className="animate-slideInUp text-4xl md:text-6xl font-light text-gray-400 mb-2">
-              by
-            </div>
-          </div>
-          <div className="overflow-hidden">
-            <div className="animate-slideInUpDelayed text-5xl md:text-7xl font-bold bg-gradient-to-r from-pink-500 to-[#5df0ec] bg-clip-text text-transparent">
-              ALI ZOKAEI
-            </div>
-          </div>
+      <div className="min-h-screen bg-purple-primary flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="particle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="text-center space-y-8 z-10">
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 1, type: "spring" }}
+            className="text-9xl mb-6"
+          >
+            ✨💅💄
+          </motion.div>
+      
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="text-2xl text-white/90 font-light"
+          >
+            BY
+          </motion.div>
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-7xl font-bold text-white mb-4 animate-textGlow"
+          >
+            ALI ZOKAEI
+          </motion.div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-[#5df0ec]/20">
-      {/* Navigation */}
-      <motion.nav 
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="bg-white/80 backdrop-blur-md border-b border-pink-100 sticky top-0 z-50"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-pink-600">Bliss Nails</h1>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-yellow-50 to-purple-100">
+      {/* Navigation Section - 100vh with header */}
+      <section className="h-screen relative overflow-hidden flex flex-col">
+        {/* Background effects */}
+        <div className="absolute inset-0 bg-purple-primary opacity-5"></div>
+        <div className="absolute top-10 left-10 w-72 h-72 bg-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-yellow-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
+        {/* Header */}
+        <motion.header 
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="glass-light border-b border-purple-200/30 relative z-10 flex-shrink-0"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-20">
+              <motion.div 
+                className="flex items-center space-x-4"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="text-4xl animate-wave">✨</div>
+                <h1 className="text-3xl font-bold text-gradient-purple-yellow">BEAUTY HAVEN</h1>
+              </motion.div>
+              <div className="hidden md:flex space-x-10">
+                {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item, index) => (
+                  <motion.a 
+                    key={item}
+                    href={`#${item.toLowerCase()}`} 
+                    className="text-gray-700 hover:text-purple-600 transition-colors font-medium relative group"
+                    whileHover={{ y: -3 }}
+                  >
+                    {item}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-yellow-500 transition-all duration-300 group-hover:w-full"></span>
+                  </motion.a>
+                ))}
+              </div>
+              <motion.a 
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                href="tel:5551234567"
+                className="bg-purple-primary text-white px-8 py-3 rounded-full font-semibold hover-glow neon-glow shadow-lg"
+              >
+                Book Now ✨
+              </motion.a>
             </div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-pink-500 transition-colors">Home</a>
-              <a href="#services" className="text-gray-700 hover:text-pink-500 transition-colors">Services</a>
-              <a href="#about" className="text-gray-700 hover:text-pink-500 transition-colors">About</a>
-              <a href="#contact" className="text-gray-700 hover:text-pink-500 transition-colors">Contact</a>
-            </div>
-            <motion.a 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="tel:5551234567"
-              className="bg-pink-500 text-white px-6 py-2 rounded-full hover:bg-pink-600 transition-colors"
-            >
-              Call to Book
-            </motion.a>
           </div>
-        </div>
-      </motion.nav>
+        </motion.header>
 
-      {/* Hero Section */}
-      <section id="home" className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-                Beautiful Nails,
-                <span className="text-pink-500 block">Beautiful You</span>
-              </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Experience luxury nail care in a serene environment. Our expert technicians create stunning designs that reflect your unique style.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <motion.a 
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="tel:5551234567"
-                  className="bg-pink-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-pink-600 transition-colors shadow-lg text-center"
-                >
-                  Call to Book
-                </motion.a>
-                <motion.button 
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-[#5df0ec] text-[#5df0ec] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#5df0ec]/10 transition-colors"
-                >
-                  View Services
-                </motion.button>
-              </div>
-            </motion.div>
-            <motion.div 
-              initial={{ x: 100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative"
-            >
-              <div className="bg-gradient-to-br from-pink-200 to-[#5df0ec]/30 rounded-3xl p-8">
-                <Image
-                  src="/woman-green-nails-glamour-makeup-eyes-beautiful-blond-34563531.jpg"
-                  alt="Beautiful nails"
-                  width={500}
-                  height={600}
-                  className="rounded-2xl shadow-2xl"
-                />
-              </div>
-            </motion.div>
+        {/* Navigation Content - Hero Section */}
+        <div className="flex-1 flex items-center justify-center relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+              <motion.div 
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="space-y-10"
+              >
+                <div className="space-y-6">
+                  {/* <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="text-7xl"
+                  >
+                    💅✨💄
+                  </motion.div> */}
+                  <h1 className="text-7xl lg:text-8xl font-bold leading-tight">
+                    <span className="text-gradient-purple-yellow">Transform</span>
+                    <br />
+                    <span className="text-gray-800">Your Style</span>
+                  </h1>
+                </div>
+                <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+                  Experience the perfect blend of artistry and luxury. Our expert team creates stunning nail designs, 
+                  professional hair styling, and flawless makeup that brings out your natural beauty.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <motion.a 
+                    whileHover={{ scale: 1.05, y: -3 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="tel:5551234567"
+                    className="bg-purple-primary text-white px-12 py-5 rounded-full text-lg font-semibold hover-glow neon-glow shadow-xl text-center"
+                  >
+                    Start Your Journey ✨
+                  </motion.a>
+                  <motion.button 
+                    whileHover={{ scale: 1.05, y: -3 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="border-yellow px-12 py-5 rounded-full text-lg font-semibold text-yellow-primary hover:bg-yellow-light transition-colors"
+                  >
+                    Explore Services
+                  </motion.button>
+                </div>
+              </motion.div>
+              <motion.div 
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.4 }}
+                className="relative"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-purple-primary rounded-3xl blur-xl opacity-20 animate-pulse"></div>
+                  <div className="relative glass-light rounded-3xl p-10 shadow-2xl">
+                    <Image
+                      src="/images/nail4.jpg"
+                      alt="Beautiful nail art tools and manicure setup"
+                      width={500}
+                      height={600}
+                      className="rounded-2xl shadow-xl"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
-        <div className="max-w-7xl mx-auto">
+      <section id="services" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/60 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-100/30 to-yellow-100/30"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From classic manicures to stunning nail art, we offer a wide range of services to pamper your hands and feet.
+            <h2 className="text-6xl font-bold text-gradient-purple-yellow mb-8">Our Services</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              From intricate nail art to stunning hair transformations and professional makeup, 
+              we offer comprehensive beauty services that enhance your natural radiance.
             </p>
           </motion.div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service Card 1 */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {/* Nail Services */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-pink-100"
+              whileHover={{ y: -15, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl hover-lift border-purple"
             >
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">💅</span>
+              <div className="w-24 h-24 bg-purple-primary rounded-full flex items-center justify-center mb-8 mx-auto neon-glow">
+                <span className="text-4xl">💅</span>
               </div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Classic Manicure</h3>
-              <p className="text-gray-600 mb-6">Professional nail shaping, cuticle care, and polish application for a clean, classic look.</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-pink-500">$35</span>
-                <motion.a 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="tel:5551234567"
-                  className="text-pink-500 hover:text-pink-600 font-semibold"
-                >
-                  Call to Book
-                </motion.a>
+              <h3 className="text-3xl font-bold text-gray-800 mb-6 text-center">Nail Artistry</h3>
+              <ul className="text-gray-600 mb-8 space-y-3">
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Luxury Manicures & Pedicures
+                </li>
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Custom Nail Art Designs
+                </li>
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Gel & Acrylic Extensions
+                </li>
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Nail Repair & Maintenance
+                </li>
+              </ul>
+              <div className="text-center">
+                <span className="text-4xl font-bold text-purple-primary">$45+</span>
               </div>
             </motion.div>
 
-            {/* Service Card 2 */}
+            {/* Hair Services */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-[#5df0ec]/30"
+              whileHover={{ y: -15, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl hover-lift border-yellow"
             >
-              <div className="w-16 h-16 bg-[#5df0ec]/20 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">🎨</span>
+              <div className="w-24 h-24 bg-yellow-primary rounded-full flex items-center justify-center mb-8 mx-auto neon-glow-yellow">
+                <span className="text-4xl">💇‍♀️</span>
               </div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Nail Art Design</h3>
-              <p className="text-gray-600 mb-6">Creative and custom nail art designs to express your personality and style.</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-[#5df0ec]">$45</span>
-                <motion.a 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="tel:5551234567"
-                  className="text-[#5df0ec] hover:text-[#4dd8d4] font-semibold"
-                >
-                  Call to Book
-                </motion.a>
+              <h3 className="text-3xl font-bold text-gray-800 mb-6 text-center">Hair Styling</h3>
+              <ul className="text-gray-600 mb-8 space-y-3">
+                <li className="flex items-center">
+                  <span className="text-yellow-primary mr-3">✦</span>
+                  Professional Haircuts
+                </li>
+                <li className="flex items-center">
+                  <span className="text-yellow-primary mr-3">✦</span>
+                  Color & Highlights
+                </li>
+                <li className="flex items-center">
+                  <span className="text-yellow-primary mr-3">✦</span>
+                  Special Occasion Styling
+                </li>
+                <li className="flex items-center">
+                  <span className="text-yellow-primary mr-3">✦</span>
+                  Hair Treatments
+                </li>
+              </ul>
+              <div className="text-center">
+                <span className="text-4xl font-bold text-yellow-primary">$65+</span>
               </div>
             </motion.div>
 
-            {/* Service Card 3 */}
+            {/* Makeup Services */}
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-pink-100"
+              whileHover={{ y: -15, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl hover-lift border-purple"
             >
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
-                <span className="text-2xl">🦶</span>
+              <div className="w-24 h-24 bg-purple-primary rounded-full flex items-center justify-center mb-8 mx-auto neon-glow">
+                <span className="text-4xl">💄</span>
               </div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Pedicure</h3>
-              <p className="text-gray-600 mb-6">Relaxing foot care including exfoliation, massage, and polish for beautiful feet.</p>
-              <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-pink-500">$50</span>
-                <motion.a 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href="tel:5551234567"
-                  className="text-pink-500 hover:text-pink-600 font-semibold"
-                >
-                  Call to Book
-                </motion.a>
+              <h3 className="text-3xl font-bold text-gray-800 mb-6 text-center">Makeup Artistry</h3>
+              <ul className="text-gray-600 mb-8 space-y-3">
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Professional Makeup
+                </li>
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Bridal & Event Makeup
+                </li>
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Makeup Lessons
+                </li>
+                <li className="flex items-center">
+                  <span className="text-purple-primary mr-3">✦</span>
+                  Lash Extensions
+                </li>
+              </ul>
+              <div className="text-center">
+                <span className="text-4xl font-bold text-purple-primary">$85+</span>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Gallery Section */}
+      <section id="gallery" className="py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div 
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-6xl font-bold text-gradient-teal-coral mb-8">Our Gallery</h2>
+            <p className="text-xl text-gray-600">
+              Discover our stunning transformations and creative masterpieces
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {[
+              { src: "/manicure-tools-pink_105506-35.avif", alt: "Pink manicure tools", delay: 0.1 },
+              { src: "/still-life-tools-nail-art_23-2150321308.avif", alt: "Nail art tools", delay: 0.2 },
+              { src: "/woman-green-nails-glamour-makeup-eyes-beautiful-blond-34563531.jpg", alt: "Glamorous makeup", delay: 0.3 },
+              { src: "/concept-nail-art-tools-pedicure-manicure_185193-117652.avif", alt: "Nail art concept", delay: 0.4 },
+            ].map((image, index) => (
+              <motion.div
+                key={index}
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: image.delay }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.08, rotate: 3 }}
+                className="relative group overflow-hidden rounded-3xl shadow-xl hover-rotate"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={300}
+                  height={400}
+                  className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-125"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <h3 className="text-lg font-semibold">Beautiful Design</h3>
+                  <p className="text-sm opacity-90">Custom nail art</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 to-yellow-50 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
             <motion.div 
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="space-y-6"
+              className="space-y-8"
             >
-              <h2 className="text-4xl font-bold text-gray-800">About Bliss Nails</h2>
+              <h2 className="text-6xl font-bold text-gradient-purple-yellow">About Beauty Haven</h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                At Bliss Nails, we believe that beautiful nails are an essential part of feeling confident and beautiful. Our team of skilled technicians is dedicated to providing you with the highest quality nail care in a relaxing, hygienic environment.
+                At Beauty Haven, we believe that every individual deserves to feel confident and beautiful. 
+                Our team of skilled artists specializes in creating stunning nail art, professional hair styling, 
+                and flawless makeup that enhances your natural beauty and reflects your unique personality.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                We use only premium products and follow strict sanitation protocols to ensure your safety and satisfaction. Whether you&apos;re looking for a simple manicure or an elaborate nail art design, we&apos;re here to make your vision come to life.
+                We use only premium products and follow the latest beauty trends to ensure you always look 
+                your best. Whether it&apos;s a special occasion or just a day of self-care, we&apos;re here to make 
+                you feel amazing and confident.
               </p>
-              <div className="flex space-x-6">
+              <div className="grid grid-cols-3 gap-8 pt-8">
                 <motion.div 
                   whileHover={{ scale: 1.1 }}
                   className="text-center"
                 >
-                  <div className="text-3xl font-bold text-pink-500">500+</div>
+                  <div className="text-5xl font-bold text-purple-primary">1500+</div>
                   <div className="text-gray-600">Happy Clients</div>
                 </motion.div>
                 <motion.div 
                   whileHover={{ scale: 1.1 }}
                   className="text-center"
                 >
-                  <div className="text-3xl font-bold text-[#5df0ec]">5+</div>
+                  <div className="text-5xl font-bold text-yellow-primary">10+</div>
                   <div className="text-gray-600">Years Experience</div>
                 </motion.div>
                 <motion.div 
                   whileHover={{ scale: 1.1 }}
                   className="text-center"
                 >
-                  <div className="text-3xl font-bold text-pink-500">100+</div>
+                  <div className="text-5xl font-bold text-purple-primary">800+</div>
                   <div className="text-gray-600">Designs Created</div>
                 </motion.div>
               </div>
@@ -271,73 +424,36 @@ export default function Home() {
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="grid grid-cols-2 gap-4"
+              className="relative"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Image
-                  src="/nail1.jpg"
-                  alt="Nail art 1"
-                  width={250}
-                  height={300}
-                  className="rounded-2xl shadow-lg"
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-                className="mt-8"
-              >
-                <Image
-                  src="/nail2.jpg"
-                  alt="Nail art 2"
-                  width={250}
-                  height={300}
-                  className="rounded-2xl shadow-lg"
-                />
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Image
-                  src="/nail3.jpg"
-                  alt="Nail art 3"
-                  width={250}
-                  height={300}
-                  className="rounded-2xl shadow-lg"
-                />
-              </motion.div>
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-                className="bg-gradient-to-br from-pink-200 to-[#5df0ec]/30 rounded-2xl p-8 flex items-center justify-center mt-8"
-              >
-                <div className="text-center">
-                  <div className="text-4xl mb-2">✨</div>
-                  <div className="text-lg font-semibold text-gray-700">Premium Quality</div>
+              <div className="relative">
+                <div className="absolute inset-0 bg-purple-primary rounded-3xl blur-xl opacity-20 animate-pulse"></div>
+                <div className="relative glass-light rounded-3xl p-12 shadow-2xl">
+                  <div className="text-center space-y-6">
+                    <div className="text-8xl animate-sparkle">✨</div>
+                    <h3 className="text-3xl font-bold text-gray-800">Premium Quality</h3>
+                    <p className="text-gray-600 text-lg">We use only the finest products and latest techniques to ensure your satisfaction</p>
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white/50">
+      <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 bg-white/80 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+            <h2 className="text-6xl font-bold text-gradient-teal-coral mb-8">Get In Touch</h2>
             <p className="text-xl text-gray-600">
-              Ready to experience the best nail care? Call us to book your appointment.
+              Ready to transform your look? Contact us to book your appointment today!
             </p>
           </motion.div>
           
@@ -349,50 +465,50 @@ export default function Home() {
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             <motion.div 
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-pink-100"
+              whileHover={{ y: -8, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl text-center border-purple hover-lift"
             >
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">📍</span>
+              <div className="w-20 h-20 bg-purple-primary rounded-full flex items-center justify-center mx-auto mb-6 neon-glow">
+                <span className="text-3xl">📍</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Visit Us</h3>
-              <p className="text-gray-600">123 Beauty Street, Downtown<br />City, State 12345</p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Visit Us</h3>
+              <p className="text-gray-600">123 Beauty Street<br />Downtown, City 12345</p>
             </motion.div>
             
             <motion.div 
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-[#5df0ec]/30"
+              whileHover={{ y: -8, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl text-center border-yellow hover-lift"
             >
-              <div className="w-16 h-16 bg-[#5df0ec]/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">📞</span>
+              <div className="w-20 h-20 bg-yellow-primary rounded-full flex items-center justify-center mx-auto mb-6 neon-glow-yellow">
+                <span className="text-3xl">📞</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Call Us</h3>
-              <a href="tel:5551234567" className="text-gray-600 hover:text-pink-500 transition-colors">(555) 123-4567</a>
-              <p className="text-sm text-gray-500 mt-2">Available Mon-Sat</p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Call Us</h3>
+              <a href="tel:5551234567" className="text-gray-600 hover:text-purple-primary transition-colors font-semibold text-lg">(555) 123-4567</a>
+              <p className="text-sm text-gray-500 mt-2">Mon-Sat: 9AM-8PM</p>
             </motion.div>
             
             <motion.div 
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-pink-100"
+              whileHover={{ y: -8, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl text-center border-purple hover-lift"
             >
-              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">✉️</span>
+              <div className="w-20 h-20 bg-purple-primary rounded-full flex items-center justify-center mx-auto mb-6 neon-glow">
+                <span className="text-3xl">✉️</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Email Us</h3>
-              <p className="text-gray-600">hello@blissnails.com</p>
-              <p className="text-sm text-gray-500 mt-2">We&apos;ll respond within 24h</p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Email Us</h3>
+              <p className="text-gray-600">hello@beautyhaven.com</p>
+              <p className="text-sm text-gray-500 mt-2">24h response time</p>
             </motion.div>
             
             <motion.div 
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-[#5df0ec]/30"
+              whileHover={{ y: -8, scale: 1.03 }}
+              className="bg-white rounded-3xl p-10 shadow-xl text-center border-yellow hover-lift"
             >
-              <div className="w-16 h-16 bg-[#5df0ec]/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">🕒</span>
+              <div className="w-20 h-20 bg-yellow-primary rounded-full flex items-center justify-center mx-auto mb-6 neon-glow-yellow">
+                <span className="text-3xl">🕒</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Opening Hours</h3>
-              <p className="text-gray-600">Mon-Sat: 9AM-7PM</p>
-              <p className="text-gray-600">Sunday: 10AM-5PM</p>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Opening Hours</h3>
+              <p className="text-gray-600">Mon-Sat: 9AM-8PM</p>
+              <p className="text-gray-600">Sunday: 10AM-6PM</p>
             </motion.div>
           </motion.div>
 
@@ -401,21 +517,24 @@ export default function Home() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
+            className="text-center mt-20"
           >
-            <div className="bg-pink-500 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-4">Ready to Book?</h3>
-              <p className="text-lg mb-6 opacity-90">
-                Don&apos;t wait to experience the best nail care in town. Call us to book your appointment today!
-              </p>
-              <motion.a 
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                href="tel:5551234567"
-                className="bg-white text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors inline-block"
-              >
-                Call (555) 123-4567
-              </motion.a>
+            <div className="bg-purple-primary rounded-3xl p-16 text-white relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
+              <div className="relative z-10">
+                <h3 className="text-4xl font-bold mb-8">Ready to Transform Your Look?</h3>
+                <p className="text-xl mb-10 opacity-90 max-w-3xl mx-auto">
+                  Book your appointment today and experience the magic of professional beauty services!
+                </p>
+                <motion.a 
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="tel:5551234567"
+                  className="bg-white text-purple-primary px-12 py-5 rounded-full font-bold text-xl hover:bg-gray-50 transition-colors inline-block shadow-xl"
+                >
+                  Book Now ✨ (555) 123-4567
+                </motion.a>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -427,63 +546,67 @@ export default function Home() {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-br from-pink-500 to-[#5df0ec] text-white py-12 px-4 sm:px-6 lg:px-8"
+        className="bg-purple-primary text-white py-20 px-4 sm:px-6 lg:px-8 relative"
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-4 gap-10">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-4">Bliss Nails</h3>
-              <p className="text-white/90">
-                Creating beautiful nails and confident smiles since 2019.
+              <div className="flex items-center space-x-4 mb-8">
+                <div className="text-4xl animate-wave">✨</div>
+                <h3 className="text-3xl font-bold text-white">BEAUTY HAVEN</h3>
+              </div>
+              <p className="text-white/90 text-lg">
+                Creating beautiful transformations and confident smiles since 2014.
               </p>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-white">Services</h4>
-              <ul className="space-y-2 text-white/90">
-                <li>Manicures</li>
-                <li>Pedicures</li>
-                <li>Nail Art</li>
-                <li>Gel Polish</li>
+              <h4 className="text-xl font-bold mb-8 text-white">Services</h4>
+              <ul className="space-y-4 text-white/90 text-lg">
+                <li>Nail Artistry</li>
+                <li>Hair Styling</li>
+                <li>Makeup Artistry</li>
+                <li>Beauty Treatments</li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-white">Quick Links</h4>
-              <ul className="space-y-2 text-white/90">
+              <h4 className="text-xl font-bold mb-8 text-white">Quick Links</h4>
+              <ul className="space-y-4 text-white/90 text-lg">
                 <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
                 <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-                <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
+                <li><a href="#gallery" className="hover:text-white transition-colors">Gallery</a></li>
                 <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-white">Follow Us</h4>
-              <div className="flex space-x-4">
+              <h4 className="text-xl font-bold mb-8 text-white">Follow Us</h4>
+              <div className="flex space-x-6">
                 <motion.a 
-                  whileHover={{ scale: 1.2, y: -2 }}
+                  whileHover={{ scale: 1.3, y: -3 }}
                   href="#" 
-                  className="text-white/90 hover:text-white text-xl transition-colors"
+                  className="text-white/90 hover:text-white text-3xl transition-colors"
                 >
                   📱
                 </motion.a>
                 <motion.a 
-                  whileHover={{ scale: 1.2, y: -2 }}
+                  whileHover={{ scale: 1.3, y: -3 }}
                   href="#" 
-                  className="text-white/90 hover:text-white text-xl transition-colors"
+                  className="text-white/90 hover:text-white text-3xl transition-colors"
                 >
                   📷
                 </motion.a>
                 <motion.a 
-                  whileHover={{ scale: 1.2, y: -2 }}
+                  whileHover={{ scale: 1.3, y: -3 }}
                   href="#" 
-                  className="text-white/90 hover:text-white text-xl transition-colors"
+                  className="text-white/90 hover:text-white text-3xl transition-colors"
                 >
                   💬
                 </motion.a>
               </div>
             </div>
           </div>
-          <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/90">
-            <p>&copy; 2024 Bliss Nails. All rights reserved.</p>
+          <div className="border-t border-white/20 mt-16 pt-8 text-center text-white/90 text-lg">
+            <p>&copy; 2024 Beauty Haven. All rights reserved. ✨</p>
           </div>
         </div>
       </motion.footer>
