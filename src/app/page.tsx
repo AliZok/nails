@@ -28,17 +28,24 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-purple-primary flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-              }}
-            />
-          ))}
+          {[...Array(20)].map((_, i) => {
+            // Use deterministic values based on index to avoid hydration mismatch
+            const left = ((i * 7) % 100) + (i % 3) * 10;
+            const top = ((i * 11) % 100) + (i % 5) * 8;
+            const delay = (i * 0.3) % 2;
+            
+            return (
+              <div
+                key={i}
+                className="particle"
+                style={{
+                  left: `${left}%`,
+                  top: `${top}%`,
+                  animationDelay: `${delay}s`,
+                }}
+              />
+            );
+          })}
         </div>
         <div className="text-center space-y-8 z-10">
           <motion.div
