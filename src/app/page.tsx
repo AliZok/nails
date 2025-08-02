@@ -403,7 +403,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <div className="bg-gradient-to-r from-pink-500 to-[#5df0ec] rounded-2xl p-8 text-white">
+            <div className="bg-pink-500 rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Ready to Book?</h3>
               <p className="text-lg mb-6 opacity-90">
                 Don&apos;t wait to experience the best nail care in town. Call us to book your appointment today!
