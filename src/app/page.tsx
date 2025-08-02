@@ -55,13 +55,14 @@ export default function Home() {
               <a href="#about" className="text-gray-700 hover:text-pink-500 transition-colors">About</a>
               <a href="#contact" className="text-gray-700 hover:text-pink-500 transition-colors">Contact</a>
             </div>
-            <motion.button 
+            <motion.a 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              href="tel:5551234567"
               className="bg-pink-500 text-white px-6 py-2 rounded-full hover:bg-pink-600 transition-colors"
             >
-              Book Now
-            </motion.button>
+              Call to Book
+            </motion.a>
           </div>
         </div>
       </motion.nav>
@@ -84,16 +85,18 @@ export default function Home() {
                 Experience luxury nail care in a serene environment. Our expert technicians create stunning designs that reflect your unique style.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <motion.button 
+                <motion.a 
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-pink-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-pink-600 transition-colors shadow-lg"
+                  href="tel:5551234567"
+                  className="bg-pink-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-pink-600 transition-colors shadow-lg text-center"
                 >
-                  Book Appointment
-                </motion.button>
+                  Call to Book
+                </motion.a>
                 <motion.button 
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                   className="border-2 border-[#5df0ec] text-[#5df0ec] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#5df0ec]/10 transition-colors"
                 >
                   View Services
@@ -153,13 +156,14 @@ export default function Home() {
               <p className="text-gray-600 mb-6">Professional nail shaping, cuticle care, and polish application for a clean, classic look.</p>
               <div className="flex justify-between items-center">
                 <span className="text-2xl font-bold text-pink-500">$35</span>
-                <motion.button 
+                <motion.a 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  href="tel:5551234567"
                   className="text-pink-500 hover:text-pink-600 font-semibold"
                 >
-                  Book Now
-                </motion.button>
+                  Call to Book
+                </motion.a>
               </div>
             </motion.div>
 
@@ -179,13 +183,14 @@ export default function Home() {
               <p className="text-gray-600 mb-6">Creative and custom nail art designs to express your personality and style.</p>
               <div className="flex justify-between items-center">
                 <span className="text-2xl font-bold text-[#5df0ec]">$45</span>
-                <motion.button 
+                <motion.a 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  href="tel:5551234567"
                   className="text-[#5df0ec] hover:text-[#4dd8d4] font-semibold"
                 >
-                  Book Now
-                </motion.button>
+                  Call to Book
+                </motion.a>
               </div>
             </motion.div>
 
@@ -205,13 +210,14 @@ export default function Home() {
               <p className="text-gray-600 mb-6">Relaxing foot care including exfoliation, massage, and polish for beautiful feet.</p>
               <div className="flex justify-between items-center">
                 <span className="text-2xl font-bold text-pink-500">$50</span>
-                <motion.button 
+                <motion.a 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  href="tel:5551234567"
                   className="text-pink-500 hover:text-pink-600 font-semibold"
                 >
-                  Book Now
-                </motion.button>
+                  Call to Book
+                </motion.a>
               </div>
             </motion.div>
           </div>
@@ -331,123 +337,87 @@ export default function Home() {
           >
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Get In Touch</h2>
             <p className="text-xl text-gray-600">
-              Ready to experience the best nail care? Contact us to book your appointment.
+              Ready to experience the best nail care? Call us to book your appointment.
             </p>
           </motion.div>
           
-          <div className="grid lg:grid-cols-2 gap-12">
+          <motion.div 
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             <motion.div 
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-8"
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-pink-100"
             >
-              <motion.div 
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4"
-              >
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                  <span className="text-xl">📍</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800">Location</h3>
-                  <p className="text-gray-600">123 Beauty Street, Downtown<br />City, State 12345</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4"
-              >
-                <div className="w-12 h-12 bg-[#5df0ec]/20 rounded-full flex items-center justify-center">
-                  <span className="text-xl">📞</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800">Phone</h3>
-                  <p className="text-gray-600">(555) 123-4567</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4"
-              >
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                  <span className="text-xl">✉️</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800">Email</h3>
-                  <p className="text-gray-600">hello@blissnails.com</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-4"
-              >
-                <div className="w-12 h-12 bg-[#5df0ec]/20 rounded-full flex items-center justify-center">
-                  <span className="text-xl">🕒</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800">Hours</h3>
-                  <p className="text-gray-600">Mon-Sat: 9AM-7PM<br />Sunday: 10AM-5PM</p>
-                </div>
-              </motion.div>
+              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl">📍</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Visit Us</h3>
+              <p className="text-gray-600">123 Beauty Street, Downtown<br />City, State 12345</p>
             </motion.div>
             
             <motion.div 
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-lg"
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-[#5df0ec]/30"
             >
-              <form className="space-y-6">
-                <motion.div
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="Your name"
-                  />
-                </motion.div>
-                <motion.div
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="your@email.com"
-                  />
-                </motion.div>
-                <motion.div
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                  <textarea
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="Tell us about your appointment needs..."
-                  ></textarea>
-                </motion.div>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  className="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition-colors"
-                >
-                  Send Message
-                </motion.button>
-              </form>
+              <div className="w-16 h-16 bg-[#5df0ec]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl">📞</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Call Us</h3>
+              <a href="tel:5551234567" className="text-gray-600 hover:text-pink-500 transition-colors">(555) 123-4567</a>
+              <p className="text-sm text-gray-500 mt-2">Available Mon-Sat</p>
             </motion.div>
-          </div>
+            
+            <motion.div 
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-pink-100"
+            >
+              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl">✉️</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Email Us</h3>
+              <p className="text-gray-600">hello@blissnails.com</p>
+              <p className="text-sm text-gray-500 mt-2">We&apos;ll respond within 24h</p>
+            </motion.div>
+            
+            <motion.div 
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white rounded-2xl p-8 shadow-lg text-center border border-[#5df0ec]/30"
+            >
+              <div className="w-16 h-16 bg-[#5df0ec]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-2xl">🕒</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Opening Hours</h3>
+              <p className="text-gray-600">Mon-Sat: 9AM-7PM</p>
+              <p className="text-gray-600">Sunday: 10AM-5PM</p>
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <div className="bg-gradient-to-r from-pink-500 to-[#5df0ec] rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-4">Ready to Book?</h3>
+              <p className="text-lg mb-6 opacity-90">
+                Don&apos;t wait to experience the best nail care in town. Call us to book your appointment today!
+              </p>
+              <motion.a 
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                href="tel:5551234567"
+                className="bg-white text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors inline-block"
+              >
+                Call (555) 123-4567
+              </motion.a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
