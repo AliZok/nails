@@ -1,6 +1,39 @@
+"use client";
+
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-[#5df0ec]/20 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="overflow-hidden">
+            <div className="animate-slideInUp text-4xl md:text-6xl font-light text-gray-400 mb-2">
+              by
+            </div>
+          </div>
+          <div className="overflow-hidden">
+            <div className="animate-slideInUpDelayed text-5xl md:text-7xl font-bold bg-gradient-to-r from-pink-500 to-[#5df0ec] bg-clip-text text-transparent">
+              ALI ZOKAEI
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-[#5df0ec]/20">
       {/* Navigation */}
