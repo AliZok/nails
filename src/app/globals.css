@@ -33,16 +33,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #fdf2f8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c084fc;
+  background: linear-gradient(to bottom, #ec4899, #5df0ec);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a855f7;
+  background: linear-gradient(to bottom, #db2777, #4dd8d4);
 }
 
 /* Smooth scrolling for anchor links */
