@@ -120,7 +120,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href="tel:5551234567"
-                className="bg-purple-primary text-white px-8 py-3 rounded-full font-semibold hover-glow neon-glow shadow-lg"
+                className="hidden md:block bg-purple-primary text-white px-8 py-3 rounded-full font-semibold hover-glow neon-glow shadow-lg"
               >
                 Book Now ✨
               </motion.a>
@@ -348,10 +348,10 @@ export default function Home() {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {[
-              { src: "/manicure-tools-pink_105506-35.avif", alt: "Pink manicure tools", delay: 0.1 },
-              { src: "/still-life-tools-nail-art_23-2150321308.avif", alt: "Nail art tools", delay: 0.2 },
-              { src: "/woman-green-nails-glamour-makeup-eyes-beautiful-blond-34563531.jpg", alt: "Glamorous makeup", delay: 0.3 },
-              { src: "/concept-nail-art-tools-pedicure-manicure_185193-117652.avif", alt: "Nail art concept", delay: 0.4 },
+              { src: "/images/nail4.jpg", alt: "Pink manicure tools", delay: 0.1 },
+              { src: "/images/nail5.jpg", alt: "Nail art tools", delay: 0.2 },
+              { src: "/images/nail6.jpg", alt: "Glamorous makeup", delay: 0.3 },
+              { src: "/images/nail1.jpg", alt: "Nail art concept", delay: 0.4 },
             ].map((image, index) => (
               <motion.div
                 key={index}
